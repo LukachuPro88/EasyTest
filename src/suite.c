@@ -3,6 +3,7 @@
 #include "easytest/tests.h"
 
 TestSuite suite;
+Test *current_test = NULL;
 
 int test(char *name, void (*function)(void))
 { 
