@@ -37,3 +37,8 @@ extern Test *current_test;
  * -1 return = realloc failed.
  */
 int test(char *name, void (*function)(void));
+
+/**
+ * @brief Runs the tests registered in the suite.
+ */
+void run_tests(void);

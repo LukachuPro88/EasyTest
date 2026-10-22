@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stddef.h>
@@ -10,7 +11,7 @@ Test *current_test = NULL;
 
 int test(char *name, void (*function)(void))
 {
-    Test new_test = {name, function, 1, ""};
+    Test new_test = {name, function, 1, NULL};
 
     Test *tmp_tests = realloc(
         suite.tests,
@@ -68,10 +69,13 @@ void run_tests(void)
         }
 
         if (!current_test->passed &&
-            current_test->fail_msg[0] != '\0')
+            current_test->fail_msg != NULL)
         {
             printf("%s\n\n", current_test->fail_msg);
         }
+
+        free(current_test->fail_msg);
+        current_test->fail_msg = NULL;
     }
 
     current_test = NULL;
