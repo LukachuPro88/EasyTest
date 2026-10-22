@@ -6,4 +6,4 @@
  * @param fail_msg The message to print if the test has failed.
  * Defaults to "".
  */
-void assert_true(int condition, char *fail_msg);
+void assert(int condition, char *fail_msg);

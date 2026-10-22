@@ -37,6 +37,3 @@ extern Test *current_test;
  * -1 return = realloc failed.
  */
 int test(char *name, void (*function)(void));
-
-void run_tests();
-
