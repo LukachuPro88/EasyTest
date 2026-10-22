@@ -4,6 +4,8 @@
 #include "easytest/assert.h"
 #include "easytest/tests.h"
 
+static char *build_fail_message(double input, double expected);
+
 void assert_true(int condition)
 {
     if (!condition)
@@ -16,7 +18,7 @@ void assert_true(int condition)
 void assert_close(
         double input,
         double expected, 
-        double toleranc
+        double tolerance
         )
 {
     if (tolerance == 0.0)

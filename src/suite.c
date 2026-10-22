@@ -30,8 +30,10 @@ int test(char *name, void (*function)(void))
     return 0;
 }
 
-void run_tests(void)
+int run_tests(void)
 {
+
+    int fail_count = 0;
     size_t max_width = 0;
 
     for (size_t i = 0; i < suite.count; ++i)
@@ -71,6 +73,7 @@ void run_tests(void)
         if (!current_test->passed &&
             current_test->fail_msg != NULL)
         {
+            fail_count += 1;
             printf("%s\n\n", current_test->fail_msg);
         }
 
@@ -79,5 +82,7 @@ void run_tests(void)
     }
 
     current_test = NULL;
+
+    return fail_count;
 }
 

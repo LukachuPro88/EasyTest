@@ -40,5 +40,7 @@ int test(char *name, void (*function)(void));
 
 /**
  * @brief Runs the tests registered in the suite.
+ *
+ * @returns The amount of failed tests.
  */
-void run_tests(void);
+int run_tests(void);

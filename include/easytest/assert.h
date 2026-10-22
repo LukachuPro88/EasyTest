@@ -20,5 +20,5 @@ void assert_true(int condition);
 void assert_close(
         double input,
         double expected,
-        double tolerance,
+        double tolerance
         );
