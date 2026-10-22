@@ -1,5 +1,10 @@
 #include <stddef.h>
 
+#define BOLD "\033[1m"
+#define RED "\033[31m"
+#define GREEN "\033[32m"
+#define RESET "\033[0m"
+
 typedef struct
 {
     const char *name;
@@ -32,3 +37,6 @@ extern Test *current_test;
  * -1 return = realloc failed.
  */
 int test(char *name, void (*function)(void));
+
+void run_tests();
+
