@@ -1,30 +1,79 @@
+#include <stdio.h>
 #include <stdlib.h>
+#include <stddef.h>
+#include <string.h>
 
 #include "easytest/tests.h"
 
-TestSuite suite;
+TestSuite suite = {0};
+Test *current_test = NULL;
 
 int test(char *name, void (*function)(void))
-{ 
-    // Use 1 (true) as default for a test case. If error has occurred
-    // assert macro turns it into 0.
-    struct Test test = {name, function, 1};
-    
-    Test *tmp_tests = realloc(
-            suite.tests,
-            sizeof(*suite.tests) * (suite.count + 1)
-            );
+{
+    Test new_test = {name, function, 1, ""};
 
-    if (tmp_tests != NULL)
-    {
-        suite.tests = tmp_tests;
-    } else
+    Test *tmp_tests = realloc(
+        suite.tests,
+        sizeof(*suite.tests) * (suite.count + 1)
+    );
+
+    if (tmp_tests == NULL)
     {
         return -1;
     }
 
-    suite.tests[suite.count] = test;
+    suite.tests = tmp_tests;
+    suite.tests[suite.count] = new_test;
     suite.count++;
-    
+
     return 0;
 }
+
+void run_tests(void)
+{
+    size_t max_width = 0;
+
+    for (size_t i = 0; i < suite.count; ++i)
+    {
+        size_t width = strlen(suite.tests[i].name);
+
+        if (width > max_width)
+        {
+            max_width = width;
+        }
+    }
+
+    for (size_t i = 0; i < suite.count; ++i)
+    {
+        current_test = &suite.tests[i];
+        current_test->function();
+
+        printf("%s%s%s ", BOLD, current_test->name, RESET);
+
+        size_t name_width = strlen(current_test->name);
+        size_t dots = max_width - name_width + 3;
+
+        for (size_t j = 0; j < dots; ++j)
+        {
+            printf(".");
+        }
+
+        if (current_test->passed)
+        {
+            printf(" %sPASS%s\n", GREEN, RESET);
+        }
+        else
+        {
+            printf(" %sFAIL%s\n", RED, RESET);
+        }
+
+        if (!current_test->passed &&
+            current_test->fail_msg[0] != '\0')
+        {
+            printf("%s\n\n", current_test->fail_msg);
+        }
+    }
+
+    current_test = NULL;
+}
+
