@@ -39,8 +39,8 @@ extern Test *current_test;
 int test(char *name, void (*function)(void));
 
 /**
- * @brief Runs all the registered tests in the suite and prints the results.
+ * @brief Runs the tests registered in the suite.
  *
- * @note Must be called after all the wanted tests are registered.
+ * @returns The amount of failed tests.
  */
-void run_tests(void);
+int run_tests(void);
