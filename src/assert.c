@@ -42,6 +42,16 @@ void assert_close(
 
 void assert_string_equal(const char *input, const char *expected)
 {
+    if (input == NULL || expected == NULL)
+    {
+        current_test->passed = FALSE;
+        current_test->fail_msg = build_string_fail_message(
+            input == NULL ? "NULL" : input,
+            expected == NULL ? "NULL" : expected
+        );
+        return;
+    }
+
     if (strcmp(input, expected) == 0)
     {
         return;
@@ -96,7 +106,7 @@ static char *build_fail_message(double input, double expected, int is_boolean)
     return message;
 }
 
-char *build_string_fail_message(const char *input, const char *expected)
+static char *build_string_fail_message(const char *input, const char *expected)
 {
     int size = snprintf(NULL, 0, "Expected '%s' got '%s'", expected, input);
 
