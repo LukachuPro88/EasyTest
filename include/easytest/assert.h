@@ -22,3 +22,11 @@ void assert_close(
         double expected,
         double tolerance
         );
+
+/**
+ * @brief Compares if two strings are the same.
+ *
+ * @param input The string to compare.
+ * @param expected The string to compare input against.
+ */
+void assert_string_equal(const char *input, const char *expected);
