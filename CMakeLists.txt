@@ -29,3 +29,11 @@ target_link_libraries(easytest_tests
 
 enable_testing()
 add_test(NAME easytest_tests COMMAND easytest_tests)
+
+install(TARGETS easytest
+    ARCHIVE DESTINATION lib
+)
+
+install(DIRECTORY include/easytest
+    DESTINATION include
+)
